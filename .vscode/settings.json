@@ -1,3 +1,12 @@
 {
-  "conventionalCommits.scopes": ["styles", "layout", "auth", "components"]
+  "conventionalCommits.scopes": [
+    "styles",
+    "layout",
+    "auth",
+    "components",
+    "Models",
+    "Models",
+    "Database",
+    "API"
+  ]
 }

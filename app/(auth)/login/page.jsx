@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import axios from "axios";
 
 const formSchema = z.object({
   email: z.string().min(2, {
@@ -26,6 +27,7 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+  const [user, setUser] = useState([]);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,6 +39,19 @@ const Login = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+        setUser(res.data);
+        console.log(res.data);
+      } catch (error) {}
+    };
+    getUser();
+  }, []);
+
+  console.log(user);
 
   return (
     <div className='lg:w-1/4 container'>
